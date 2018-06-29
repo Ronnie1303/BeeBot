@@ -11,7 +11,6 @@ from discord.ext import commands
 from weather import Unit, Weather
 
 bee_emoji = "🐝"
-poop_emoji = "💩"
 quotes = {
     "Ray Bradbury" : "Bees do have a smell, you know, and if they don’t they should, for their feet are dusted with spices from a million flowers.",
     "Muriel Barbery" : "We think we can make honey without sharing in the fate of bees, but we are in truth nothing but poor bees, destined to accomplish our task and then die.",
@@ -25,14 +24,6 @@ quotes = {
     "Ralph Waldo Emerson" : "God will not have his work made manifest by cowards.",
     "Miloš Zeman" : "Kunda sem, kunda tam...",
 }
-
-ah_quotes = [
-    "Das bolschewistische {}, dem sie die europäischen Nationen ausliefern wollen, wird sie und ihre Völker dereinst selbst zerfetzen!",
-    "Wir sind uns im klaren, daß dieser Krieg ja nur damit enden könnte, daß {} ausgerottet wird!",
-    "Mit jedem Kind, das sie {} zur Welt bringt, kämpft sie ihren Kampf für die Nation!",
-    "Polen hat nun heute nacht zum erstenmal auf unserem eigenen Territorium auch durch reguläre {} geschossen!",
-    "Toter {}, geh ein in Walhall!",
-]
 
 with open(".token") as fp:
     token = fp.readline().strip()
@@ -57,10 +48,6 @@ async def weather(ctx, *location):
         condition.text(), condition.temp(), float(response.wind()["speed"])))
 
 @bot.command()
-async def shoot(ctx, target):
-    await ctx.send("\**Bang bang* \* \n \** {} drops dead* \*".format(target))
-
-@bot.command()
 async def insult(ctx, target : discord.Member):
     try:
         url = "https://evilinsult.com/generate_insult.php?lang=en"
@@ -71,11 +58,6 @@ async def insult(ctx, target : discord.Member):
         return
 
     await ctx.send(f"{target.mention}: {insult}")
-
-@bot.command()
-async def gas(ctx, target):
-    quote = random.choice(ah_quotes)
-    await ctx.send(quote.format(target));
 
 @bot.command()
 @commands.is_owner()
