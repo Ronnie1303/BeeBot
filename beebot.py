@@ -3,6 +3,7 @@
 import asyncio
 import discord
 import logging
+from discord.ext import commands
 from discord.ext.commands import Bot
 from colorama import Fore, Style
 
@@ -31,6 +32,37 @@ with open(".discord_token") as fp:
     token = fp.readline().strip()
 
 bot = Bot(description="BeeBot", command_prefix="?")
+
+@bot.event
+async def on_command_error(ctx, exception):
+    suppressed_exceptions = (
+        commands.CommandNotFound
+    )
+    selfdestruct_exceptions = (
+        commands.CommandOnCooldown
+    )
+    selfdestruct = None
+
+    logging.error("({}) {}".format(type(exception), exception))
+
+    err = discord.Embed(title="Error", colour=0xdd5f53)
+
+    # Silently ignore some exceptions
+    if isinstance(exception, suppressed_exceptions):
+        return
+
+    # Delete selected error messages after x seconds along with CD'ed command
+    if isinstance(exception, selfdestruct_exceptions):
+        await ctx.message.delete()
+        selfdestruct = 5
+
+    # Replace the generic CheckFailure message with something more useful
+    if isinstance(exception, commands.CheckFailure):
+        err.description = "Insufficient permissions"
+    else:
+        err.description = str(exception)
+
+    await ctx.send(embed=err, delete_after=selfdestruct)
 
 @bot.event
 async def on_ready():
