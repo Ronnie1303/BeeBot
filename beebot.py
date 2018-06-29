@@ -10,6 +10,9 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 from weather import Unit, Weather
 
+enabled_exts = [
+]
+
 bee_emoji = "🐝"
 quotes = {
     "Ray Bradbury" : "Bees do have a smell, you know, and if they don’t they should, for their feet are dusted with spices from a million flowers.",
@@ -97,5 +100,12 @@ async def on_message_delete(message):
 
     await message.channel.send("{}: u little piece of shit >:("
             .format(message.author.mention))
+
+for ext in enabled_exts:
+    try:
+        bot.load_extension(ext)
+    except:
+        logging.exception(f"Failed to load '{ext}'")
+
 
 bot.run(token)
