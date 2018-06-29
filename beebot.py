@@ -70,8 +70,14 @@ async def purge(ctx, number : int):
 
 @bot.event
 async def on_ready():
-    print("Logged in ({}/{})".format(bot.user.name, bot.user.id))
+    invite = "https://discordapp.com/oauth2/authorize?client_id={}&scope=bot" \
+                .format(bot.user.id)
+    gamename = "{}help".format(bot.command_prefix)
+    logging.info("Invite link: {}".format(invite))
+    logging.info("Logged in ({}/{})".format(bot.user.name, bot.user.id))
     await bot.change_presence(game=discord.Game(name="with a bee"))
+    servers = [s.name for s in bot.guilds]
+    logging.info("Servers: {}".format(", ".join(servers)))
 
 @bot.listen()
 async def on_message(message):
