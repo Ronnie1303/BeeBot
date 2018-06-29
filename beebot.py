@@ -3,16 +3,15 @@
 import asyncio
 import discord
 import logging
-import random
 import re
 import requests
 from colorama import Fore, Style
 from discord.ext.commands import Bot
 from discord.ext import commands
-from weather import Unit, Weather
 
 enabled_exts = [
     "cogs.bee",
+    "cogs.weather",
 ]
 
 # Setup logging
@@ -33,23 +32,9 @@ with open(".discord_token") as fp:
     token = fp.readline().strip()
 
 bot = Bot(description="BeeBot", command_prefix="?")
-weather_ = Weather(unit=Unit.CELSIUS)
 
 ### COMMANDS ###
 
-@bot.command()
-async def weather(ctx, *location):
-    raw_location = " ".join(location)
-    response = weather_.lookup_by_location(raw_location)
-    if response is None:
-        await ctx.send(f"Unknown location '{raw_location}'")
-        return
-
-    condition = response.condition()
-
-    await ctx.send("Weather for {}, {}: {}, {}°C, wind: {:.2f} km/h".format(
-        response.location().city(), response.location().country(),
-        condition.text(), condition.temp(), float(response.wind()["speed"])))
 
 @bot.command()
 async def insult(ctx, target : discord.Member):
