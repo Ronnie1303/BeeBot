@@ -6,6 +6,7 @@ import logging
 import random
 import re
 import requests
+from colorama import Fore, Style
 from discord.ext.commands import Bot
 from discord.ext import commands
 from weather import Unit, Weather
@@ -27,6 +28,20 @@ quotes = {
     "Ralph Waldo Emerson" : "God will not have his work made manifest by cowards.",
     "Miloš Zeman" : "Kunda sem, kunda tam...",
 }
+
+# Setup logging
+logging_colors = {
+    logging.DEBUG    : Fore.BLUE,
+    logging.INFO     : Fore.GREEN,
+    logging.WARNING  : Fore.YELLOW,
+    logging.ERROR    : Fore.RED,
+    logging.CRITICAL : Fore.MAGENTA
+}
+logging.basicConfig(level=logging.INFO,
+        format="%(asctime)-15s [%(module)s/%(funcName)s] %(levelname)s: %(message)s")
+for level, color in logging_colors.items():
+    logging.addLevelName(level, "{}{}{}".format(color, logging.getLevelName(level),
+            Style.RESET_ALL))
 
 with open(".token") as fp:
     token = fp.readline().strip()
