@@ -11,6 +11,7 @@ from discord.ext import commands
 
 enabled_exts = [
     "cogs.bee",
+    "cogs.other",
     "cogs.weather",
 ]
 
@@ -35,24 +36,6 @@ bot = Bot(description="BeeBot", command_prefix="?")
 
 ### COMMANDS ###
 
-
-@bot.command()
-async def insult(ctx, target : discord.Member):
-    try:
-        url = "https://evilinsult.com/generate_insult.php?lang=en"
-        res = requests.get(url)
-        insult = str(res.content, encoding="utf-8")
-    except:
-        logging.exception("Insult fetching failed")
-        return
-
-    await ctx.send(f"{target.mention}: {insult}")
-
-@bot.command()
-@commands.is_owner()
-async def purge(ctx, number : int):
-    await ctx.channel.purge(limit=number)
-
 @bot.event
 async def on_ready():
     invite = "https://discordapp.com/oauth2/authorize?client_id={}&scope=bot" \
@@ -71,20 +54,9 @@ async def on_message(message):
 
     channel = message.channel
 
-    if any(x == message.content for x in ['J', 'j']):
-        await channel.send(message.content)
-
     m = re.search("store.steampowered.com/app/([0-9]+)", message.content)
     if m:
         await channel.send("steam://store/{}".format(m[1]))
-
-@bot.listen()
-async def on_message_delete(message):
-    if message.author == bot.user:
-        return
-
-    await message.channel.send("{}: u little piece of shit >:("
-            .format(message.author.mention))
 
 for ext in enabled_exts:
     try:
