@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from weather import Unit, Weather as LibWeather
 
+
 class Weather:
     def __init__(self, bot):
         self.bot = bot

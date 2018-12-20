@@ -13,9 +13,8 @@ quotes = {
     "St John Chrysostom" : "The bee is more honoured than other animals,not because she labors,but because she labours for others.",
     "Congolese" : "When the bee comes to your house, let her have beer; you may want to visit the bee’s house some day.",
     "Eddie Izzard" : "I'm covered in bees!",
-    "Ralph Waldo Emerson" : "God will not have his work made manifest by cowards.",
-    "Miloš Zeman" : "Kunda sem, kunda tam...",
 }
+
 
 class Bee:
     def __init__(self, bot):

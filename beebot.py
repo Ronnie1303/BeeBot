@@ -11,6 +11,7 @@ enabled_exts = [
     "cogs.bee",
     "cogs.other",
     "cogs.steam",
+    "cogs.trivia",
     "cogs.weather",
 ]
 
@@ -36,7 +37,8 @@ bot = Bot(description="BeeBot", command_prefix="?")
 @bot.event
 async def on_command_error(ctx, exception):
     suppressed_exceptions = (
-        commands.CommandNotFound
+        commands.CommandNotFound,
+        commands.errors.CommandInvokeError
     )
     selfdestruct_exceptions = (
         commands.CommandOnCooldown
