@@ -13,6 +13,7 @@ enabled_exts = [
     "cogs.steam",
     "cogs.trivia",
     "cogs.weather",
+    "cogs.misc",
 ]
 
 # Setup logging
