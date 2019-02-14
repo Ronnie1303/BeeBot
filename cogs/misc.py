@@ -18,6 +18,9 @@ class Misc:
                 await message.add_reaction(letter)
             await channel.send("https://www.youtube.com/watch?v=kJQP7kiw5Fk")
 
+    @commands.command()
+    async def canWeExpectGodToDoAllTheWork(self, ctx):
+        await ctx.send("https://i.kym-cdn.com/photos/images/newsfeed/001/341/821/4ff.png")
 
 def setup(bot):
     bot.add_cog(Misc(bot))
