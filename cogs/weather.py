@@ -4,7 +4,7 @@ from discord.ext import commands
 from weather import Unit, Weather as LibWeather
 
 
-class Weather:
+class Weather(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self._weather = LibWeather(unit=Unit.CELSIUS)
@@ -13,7 +13,7 @@ class Weather:
     async def weather(self, ctx, *, location):
         response = self._weather.lookup_by_location(location)
         if response is None:
-            await ctx.send(f"Unknown location '{raw_location}'")
+            await ctx.send(f"Unknown location '{location}'")
             return
 
         condition = response.condition()

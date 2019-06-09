@@ -74,7 +74,7 @@ async def on_ready():
     gamename = "{}help".format(bot.command_prefix)
     logging.info("Invite link: {}".format(invite))
     logging.info("Logged in ({}/{})".format(bot.user.name, bot.user.id))
-    await bot.change_presence(game=discord.Game(name="with a bee"))
+    await bot.change_presence(activity=discord.Game(name="with a bee"))
     servers = [s.name for s in bot.guilds]
     logging.info("Servers: {}".format(", ".join(servers)))
 

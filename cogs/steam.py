@@ -1,11 +1,13 @@
 import asyncio
 import discord
 import re
+from discord.ext import commands
 
-class Steam:
+class Steam(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.Cog.listener()
     async def on_message(self, message):
         if message.author == self.bot.user:
             return

@@ -2,7 +2,7 @@ import asyncio
 import discord
 from discord.ext import commands
 
-class Other:
+class Other(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -11,6 +11,7 @@ class Other:
     async def purge(self, ctx, number : int):
         await ctx.channel.purge(limit=number)
 
+    @commands.Cog.listener()
     async def on_message(self, message):
         if message.author == self.bot.user:
             return
@@ -20,6 +21,7 @@ class Other:
         if any(x == message.content for x in ['J', 'j']):
             await channel.send(message.content)
 
+    @commands.Cog.listener()
     async def on_message_delete(self, message):
         if message.author == self.bot.user:
             return
